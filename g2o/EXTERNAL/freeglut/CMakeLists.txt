@@ -7,7 +7,7 @@ add_library(freeglut_minimal ${G2O_LIB_TYPE}
 target_link_libraries(freeglut_minimal PUBLIC ${G2O_OPENGL_TARGET})
 target_include_directories(freeglut_minimal PUBLIC
   "$<BUILD_INTERFACE:${g2o_SOURCE_DIR};${PROJECT_BINARY_DIR}>"
-  $<INSTALL_INTERFACE:include/g2o/freeglut_minimal>
+  $<INSTALL_INTERFACE:include/g2o/EXTERNAL/freeglut>
 )
 
 set_target_properties(freeglut_minimal PROPERTIES OUTPUT_NAME ${LIB_PREFIX}ext_freeglut_minimal)

@@ -46,11 +46,10 @@ class G2O_TYPES_SLAM2D_API VertexSE2 : public BaseVertex<3, SE2> {
   virtual void setToOriginImpl() { _estimate = SE2(); }
 
   virtual void oplusImpl(const number_t* update) {
-    Vector2 t = _estimate.translation();
-    t += Eigen::Map<const Vector2>(update);
-    number_t angle = normalize_theta(_estimate.rotation().angle() + update[2]);
-    _estimate.setTranslation(t);
-    _estimate.setRotation(Rotation2D(angle));
+    SE2 t = _estimate, dt = SE2();
+    dt.setTranslation(Vector2(update[0], update[1]));
+    dt.setRotation(Rotation2D(normalize_theta(update[2])));
+    _estimate = t * dt;
   }
 
   virtual bool setEstimateDataImpl(const number_t* est) {

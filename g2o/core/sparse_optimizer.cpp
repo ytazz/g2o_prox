@@ -379,6 +379,7 @@ void SparseOptimizer::computeInitialGuess(
 }
 
 int SparseOptimizer::optimize(int iterations, bool online) {
+  int itr = (iterations == 0 ? INT_MAX : iterations);
   if (_ivMap.size() == 0) {
     cerr << __PRETTY_FUNCTION__
          << ": 0 vertices to optimize, maybe forgot to call "
@@ -398,13 +399,15 @@ int SparseOptimizer::optimize(int iterations, bool online) {
   }
 
   _batchStatistics.clear();
-  if (_computeBatchStatistics) _batchStatistics.resize(iterations);
+  if (_computeBatchStatistics && iterations) _batchStatistics.resize(iterations);
+
+  number_t chi2 = DBL_MAX;
 
   OptimizationAlgorithm::SolverResult result = OptimizationAlgorithm::OK;
-  for (int i = 0; i < iterations && !terminate() && ok; i++) {
+  for (int i = 0; i < itr && !terminate() && ok; i++) {
     preIteration(i);
 
-    if (_computeBatchStatistics) {
+    if (_computeBatchStatistics && iterations) {
       G2OBatchStatistics& cstat = _batchStatistics[i];
       G2OBatchStatistics::setGlobalStats(&cstat);
       cstat.iteration = i;
@@ -417,7 +420,7 @@ int SparseOptimizer::optimize(int iterations, bool online) {
     ok = (result == OptimizationAlgorithm::OK);
 
     bool errorComputed = false;
-    if (_computeBatchStatistics) {
+    if (_computeBatchStatistics && iterations) {
       computeActiveErrors();
       errorComputed = true;
       _batchStatistics[i].chi2 = activeRobustChi2();
@@ -436,6 +439,11 @@ int SparseOptimizer::optimize(int iterations, bool online) {
     }
     ++cjIterations;
     postIteration(i);
+
+    number_t _chi2 = activeRobustChi2();
+    if (!iterations && fabs(chi2 - _chi2) < 1.e-6)
+        break;
+    chi2 = _chi2;
   }
   if (result == OptimizationAlgorithm::Fail) {
     return 0;

@@ -139,6 +139,11 @@ void G2O_OPENGL_API drawArrow2D(float len, float head_width, float head_len);
  */
 void G2O_OPENGL_API drawPoint(float pointSize);
 
+/**
+ * draw a line along the x axis
+ */
+void G2O_OPENGL_API drawLine(float lineLength, float  lineWidth);
+
 // @}
 
 #define POSE_VERTEX_COLOR 0.5f, 0.5f, 0.8f

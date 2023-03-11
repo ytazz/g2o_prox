@@ -27,6 +27,8 @@
 #ifndef G2O_EDGE_SE2_H
 #define G2O_EDGE_SE2_H
 
+//#define NUMERIC_JACOBIAN_TWO_D_TYPES
+
 #include "g2o/config.h"
 #include "g2o/core/base_binary_edge.h"
 #include "g2o_types_slam2d_api.h"

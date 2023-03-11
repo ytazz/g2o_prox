@@ -24,31 +24,30 @@
 // NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-#ifndef G2O_TYPES_SLAM2D_
-#define G2O_TYPES_SLAM2D_
+#include "parameter_switch_weight.h"
 
-#include "cache_prox.h"				//added by wada
-#include "edge_pointxy.h"
-#include "edge_se2.h"
-#include "edge_se2_lotsofxy.h"
-#include "edge_se2_offset.h"
-#include "edge_se2_pointxy.h"
-#include "edge_se2_pointxy_bearing.h"
-#include "edge_se2_pointxy_calib.h"
-#include "edge_se2_pointxy_offset.h"
-#include "edge_se2_prior.h"
-#include "edge_se2_twopointsxy.h"
-#include "edge_se2_xyprior.h"
-#include "edge_xy_prior.h"
-#include "edge_prox.h"               //added by wada
-#include "edge_switch_prox.h"        //added by wada
-#include "edge_switch_se2.h"         //added by wada
-#include "g2o/config.h"
-#include "parameter_se2_offset.h"
-#include "parameter_switch_weight.h" //added by wada
-#include "vertex_point_xy.h"
+#include "g2o/core/io_helper.h"
 #include "vertex_se2.h"
-#include "vertex_prox.h"             //added by wada
-#include "vertex_switch.h"           //added by wada
 
+#ifdef G2O_HAVE_OPENGL
+#include "g2o/stuff/opengl_wrapper.h"
 #endif
+
+namespace g2o {
+
+	ParameterSwitchWeight::ParameterSwitchWeight() { setInfo();}
+
+bool ParameterSwitchWeight::read(std::istream& is) {
+	number_t i;
+	is >> i;
+  if (is.bad()) return false;
+  setInfo(i);
+  return true;
+}
+
+bool ParameterSwitchWeight::write(std::ostream& os) const {
+	os << Info();
+	return true;
+}
+
+}  // namespace g2o

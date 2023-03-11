@@ -37,8 +37,12 @@ G2O_REGISTER_TYPE_GROUP(slam2d);
 
 G2O_REGISTER_TYPE(VERTEX_SE2, VertexSE2);
 G2O_REGISTER_TYPE(VERTEX_XY, VertexPointXY);
+G2O_REGISTER_TYPE(VERTEX_PROX, VertexProx);                       //added by wada
+G2O_REGISTER_TYPE(VERTEX_SWITCH, VertexSwitch);                   //added by wada
 G2O_REGISTER_TYPE(PARAMS_SE2OFFSET, ParameterSE2Offset);
+G2O_REGISTER_TYPE(PARAMS_SWITCH_WEIGHT, ParameterSwitchWeight);   //added by wada
 G2O_REGISTER_TYPE(CACHE_SE2_OFFSET, CacheSE2Offset);
+G2O_REGISTER_TYPE(CACHE_PROX, CacheProximity);                    //added by wada
 G2O_REGISTER_TYPE(EDGE_PRIOR_SE2, EdgeSE2Prior);
 G2O_REGISTER_TYPE(EDGE_PRIOR_SE2_XY, EdgeSE2XYPrior);
 G2O_REGISTER_TYPE(EDGE_SE2, EdgeSE2);
@@ -51,9 +55,16 @@ G2O_REGISTER_TYPE(EDGE_POINTXY, EdgePointXY);
 G2O_REGISTER_TYPE(EDGE_SE2_TWOPOINTSXY, EdgeSE2TwoPointsXY);
 G2O_REGISTER_TYPE(EDGE_SE2_LOTSOFXY, EdgeSE2LotsOfXY);
 G2O_REGISTER_TYPE(EDGE_PRIOR_XY, EdgeXYPrior);
+G2O_REGISTER_TYPE(EDGE_PROX, EdgeProx);	                          //added by wada
+G2O_REGISTER_TYPE(EDGE_M_Est_PROX, EdgeMEstProx);	              //added by wada
+G2O_REGISTER_TYPE(EDGE_SWITCH_SE2, EdgeSwitchSE2SIP);             //added by wada
+G2O_REGISTER_TYPE(EDGE_SWITCH_PROX, EdgeSwitchProxSIP);           //added by wada
+G2O_REGISTER_TYPE(EDGE_SWITCH_SE2_, EdgeSwitchSE2);               //added by wada
+G2O_REGISTER_TYPE(EDGE_SWITCH_PROX_, EdgeSwitchProx);             //added by wada
 
 G2O_REGISTER_ACTION(VertexSE2WriteGnuplotAction);
 G2O_REGISTER_ACTION(VertexPointXYWriteGnuplotAction);
+G2O_REGISTER_ACTION(VertexProxWriteGnuplotAction);                //added by wada
 G2O_REGISTER_ACTION(EdgeSE2WriteGnuplotAction);
 G2O_REGISTER_ACTION(EdgeSE2PointXYWriteGnuplotAction);
 G2O_REGISTER_ACTION(EdgeSE2PointXYBearingWriteGnuplotAction);
@@ -61,9 +72,13 @@ G2O_REGISTER_ACTION(EdgeSE2PointXYBearingWriteGnuplotAction);
 #ifdef G2O_HAVE_OPENGL
 G2O_REGISTER_ACTION(VertexSE2DrawAction);
 G2O_REGISTER_ACTION(VertexPointXYDrawAction);
+G2O_REGISTER_ACTION(VertexProxDrawAction);                        //added by wada
 G2O_REGISTER_ACTION(EdgeSE2DrawAction);
 G2O_REGISTER_ACTION(EdgeSE2PointXYDrawAction);
 G2O_REGISTER_ACTION(EdgeSE2PointXYBearingDrawAction);
+G2O_REGISTER_ACTION(EdgeProxDrawAction);                          //added by wada
+G2O_REGISTER_ACTION(EdgeMEstProxDrawAction);                      //added by wada
+G2O_REGISTER_ACTION(EdgeSwitchProxDrawAction);                    //added by wada
 
 #endif
 }  // namespace g2o

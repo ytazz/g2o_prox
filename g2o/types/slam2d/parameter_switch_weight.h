@@ -24,31 +24,36 @@
 // NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-#ifndef G2O_TYPES_SLAM2D_
-#define G2O_TYPES_SLAM2D_
+#ifndef G2O_SWITCHING_WEIGHT_H_
+#define G2O_SWITCHING_WEIGHT_H_
 
-#include "cache_prox.h"				//added by wada
-#include "edge_pointxy.h"
-#include "edge_se2.h"
-#include "edge_se2_lotsofxy.h"
-#include "edge_se2_offset.h"
-#include "edge_se2_pointxy.h"
-#include "edge_se2_pointxy_bearing.h"
-#include "edge_se2_pointxy_calib.h"
-#include "edge_se2_pointxy_offset.h"
-#include "edge_se2_prior.h"
-#include "edge_se2_twopointsxy.h"
-#include "edge_se2_xyprior.h"
-#include "edge_xy_prior.h"
-#include "edge_prox.h"               //added by wada
-#include "edge_switch_prox.h"        //added by wada
-#include "edge_switch_se2.h"         //added by wada
-#include "g2o/config.h"
-#include "parameter_se2_offset.h"
-#include "parameter_switch_weight.h" //added by wada
-#include "vertex_point_xy.h"
-#include "vertex_se2.h"
-#include "vertex_prox.h"             //added by wada
-#include "vertex_switch.h"           //added by wada
+
+#include "g2o_types_slam2d_api.h"
+#include "g2o/core/cache.h"
+
+
+namespace g2o {
+
+  /**
+   * \brief offset for an SE2
+   */
+  class G2O_TYPES_SLAM2D_API ParameterSwitchWeight : public Parameter
+  {
+    public:
+      EIGEN_MAKE_ALIGNED_OPERATOR_NEW;
+      ParameterSwitchWeight();
+
+      virtual bool read(std::istream& is);
+      virtual bool write(std::ostream& os) const;
+
+      inline void setInfo(const number_t info = 0.) { _info = info; };
+
+      inline number_t Info() const { return _info; };
+
+    protected:
+      number_t _info;
+  };
+
+}
 
 #endif

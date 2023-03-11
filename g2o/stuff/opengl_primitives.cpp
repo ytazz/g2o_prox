@@ -305,5 +305,13 @@ void drawPoint(float pointSize) {
   glVertex3f(0, 0, 0);
   glEnd();
 }
+
+void drawLine(float lineLength, float  lineWidth) {
+    glLineWidth(lineWidth);
+    glBegin(GL_LINES);
+    glVertex3f(0.f, 0.f, 0.f);
+    glVertex3f(lineLength, 0.f, 0.f);
+    glEnd();
+}
 }  // namespace opengl
 }  // namespace g2o

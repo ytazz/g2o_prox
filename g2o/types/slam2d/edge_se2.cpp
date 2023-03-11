@@ -63,23 +63,19 @@ void EdgeSE2::initialEstimate(const OptimizableGraph::VertexSet& from,
 void EdgeSE2::linearizeOplus() {
   const VertexSE2* vi = static_cast<const VertexSE2*>(_vertices[0]);
   const VertexSE2* vj = static_cast<const VertexSE2*>(_vertices[1]);
-  number_t thetai = vi->estimate().rotation().angle();
-
+  number_t thetai = vi->estimate().rotation().angle(), 
+      thetaj = vj->estimate().rotation().angle(), 
+      thetam = measurement().rotation().angle();
   Vector2 dt = vj->estimate().translation() - vi->estimate().translation();
-  number_t si = std::sin(thetai), ci = std::cos(thetai);
 
-  _jacobianOplusXi << -ci, -si, -si * dt.x() + ci * dt.y(), si, -ci,
-      -ci * dt.x() - si * dt.y(), 0, 0, -1;
+  _jacobianOplusXi.setZero();
+  _jacobianOplusXi.block<2, 2>(0, 0) = -Matrix2(Rotation2D(-thetam));
+  _jacobianOplusXi.block<2, 1>(0, 2) = Matrix2(Rotation2D(-thetai - thetam - M_PI_2)) * dt;
+  _jacobianOplusXi(2, 2) = -1.;
 
-  _jacobianOplusXj << ci, si, 0, -si, ci, 0, 0, 0, 1;
-
-  const SE2& rmean = _inverseMeasurement;
-  Matrix3 z;
-  z.block<2, 2>(0, 0) = rmean.rotation().toRotationMatrix();
-  z.col(2) << cst(0.), cst(0.), cst(1.);
-  z.row(2).head<2>() << cst(0.), cst(0.);
-  _jacobianOplusXi = z * _jacobianOplusXi;
-  _jacobianOplusXj = z * _jacobianOplusXj;
+  _jacobianOplusXj.setZero();
+  _jacobianOplusXj.block<2, 2>(0, 0) = Matrix2(Rotation2D(thetaj - thetai - thetam));
+  _jacobianOplusXj(2, 2) = 1.;
 }
 #endif
 

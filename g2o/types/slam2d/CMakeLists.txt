@@ -1,19 +1,28 @@
 add_library(types_slam2d ${G2O_LIB_TYPE}
+  types_slam2d.cpp			    types_slam2d.h
   se2.h
-  edge_se2_pointxy_bearing.h  edge_se2_prior.h
-  edge_se2.cpp                  edge_se2_pointxy_calib.cpp  types_slam2d.cpp
-  edge_se2.h                    edge_se2_pointxy_calib.h    vertex_point_xy.cpp
-  edge_se2_pointxy.cpp        vertex_point_xy.h
-  edge_se2_pointxy.h          vertex_se2.cpp
-  edge_se2_pointxy_bearing.cpp  edge_se2_prior.cpp          vertex_se2.h
-  parameter_se2_offset.cpp     parameter_se2_offset.h
-  edge_se2_offset.cpp          edge_se2_offset.h
-  edge_se2_pointxy_offset.cpp  edge_se2_pointxy_offset.h
-  edge_se2_xyprior.cpp edge_se2_xyprior.h
-  edge_pointxy.cpp             edge_pointxy.h
-  edge_se2_twopointsxy.cpp	edge_se2_twopointsxy.h
-  edge_se2_lotsofxy.cpp		edge_se2_lotsofxy.h
-  edge_xy_prior.cpp		edge_xy_prior.h
+  cache_prox.cpp				cache_prox.h		#added by wada
+  edge_se2.cpp					edge_se2.h
+  edge_se2_pointxy_bearing.cpp	edge_se2_pointxy_bearing.h
+  edge_se2_pointxy_calib.cpp	edge_se2_pointxy_calib.h
+  edge_se2_pointxy.cpp			edge_se2_pointxy.h
+  edge_se2_prior.cpp			edge_se2_prior.h
+  edge_se2_offset.cpp			edge_se2_offset.h
+  edge_se2_pointxy_offset.cpp	edge_se2_pointxy_offset.h
+  edge_se2_xyprior.cpp			edge_se2_xyprior.h
+  edge_pointxy.cpp				edge_pointxy.h
+  edge_se2_twopointsxy.cpp		edge_se2_twopointsxy.h
+  edge_se2_lotsofxy.cpp			edge_se2_lotsofxy.h
+  edge_xy_prior.cpp				edge_xy_prior.h
+  edge_prox.cpp					edge_prox.h				#added by wada
+  edge_switch_se2.cpp			edge_switch_se2.h		#added by wada
+  edge_switch_prox.cpp			edge_switch_prox.h		#added by wada
+  vertex_se2.cpp				vertex_se2.h
+  vertex_point_xy.cpp			vertex_point_xy.h
+  vertex_switch.cpp				vertex_switch.h			#added by wada
+  vertex_prox.cpp				vertex_prox.h			#added by wada
+  parameter_se2_offset.cpp		parameter_se2_offset.h
+  parameter_switch_weight.cpp	parameter_switch_weight.h	#added by wada
   g2o_types_slam2d_api.h
 )
 
