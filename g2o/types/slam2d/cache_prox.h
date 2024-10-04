@@ -18,7 +18,7 @@ class G2O_TYPES_SLAM2D_API CacheProximity : public Cache {
   CacheProximity();
   virtual void updateImpl();
 
-  inline const int& numProx() const { return _locProxPoints.size(); }
+  inline const int  numProx() const { return _locProxPoints.size(); }
   inline const Vector2& r(int i) const { return _locProxPoints[i]; }
   inline const Vector2& u(int i) const { return _locNormalVecs[i]; }
   inline const Vector2& q(int i) const { return _absProxPoints[i]; }
@@ -27,12 +27,12 @@ class G2O_TYPES_SLAM2D_API CacheProximity : public Cache {
   inline const Vector2& de(int i) const { return _diffNormalVecs[i]; }
 
  protected:
-     std::vector<Vector2> _locProxPoints;
-     std::vector<Vector2> _absProxPoints;
-     std::vector<Vector2> _diffProxPoints;
-     std::vector<Vector2> _locNormalVecs;
-     std::vector<Vector2> _absNormalVecs;
-     std::vector<Vector2> _diffNormalVecs;
+     std::vector<Vector2, Eigen::aligned_allocator<Vector2> > _locProxPoints;
+     std::vector<Vector2, Eigen::aligned_allocator<Vector2> > _absProxPoints;
+     std::vector<Vector2, Eigen::aligned_allocator<Vector2> > _diffProxPoints;
+     std::vector<Vector2, Eigen::aligned_allocator<Vector2> > _locNormalVecs;
+     std::vector<Vector2, Eigen::aligned_allocator<Vector2> > _absNormalVecs;
+     std::vector<Vector2, Eigen::aligned_allocator<Vector2> > _diffNormalVecs;
 
  protected:
   virtual bool resolveDependencies();
